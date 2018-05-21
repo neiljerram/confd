@@ -1,9 +1,10 @@
 package: github.com/kelseyhightower/confd
 import:
 - package: github.com/projectcalico/libcalico-go
-  version: d3230e0d9ba41b54c082aeaf1c42f6ee98cb3331
+  repo: https://github.com/neiljerram/libcalico-go
+  version: bgp-password
 
-# v3.3.3 + our fixes.  Can be reverted back to upstream if 
+# v3.3.3 + our fixes.  Can be reverted back to upstream if
 # https://github.com/coreos/etcd/pull/9614 is resolved.
 - package: github.com/coreos/etcd
   version: e8287287893bd4080040e4fe68dae8a20476b095
