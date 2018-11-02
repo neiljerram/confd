@@ -29,6 +29,7 @@ var (
 	prefix        string
 	syncOnly      bool
 	calicoconfig  string
+	kubeconfig    string
 )
 
 // Copied from <felix>/config/config_params.go.
@@ -63,6 +64,11 @@ type Config struct {
 	KeepStageFile  bool   `toml:"keep-stage-file"`
 	Typha          TyphaConfig
 	TemplateConfig template.Config
+
+	// Path to a kubeconfig file to use for accessing the k8s API directly.  We do this to
+	// monitor k8s services and endpoints, in order to advertise cluster and external IPs over
+	// BGP.
+	Kubeconfig string
 }
 
 func init() {
@@ -75,6 +81,7 @@ func init() {
 	flag.StringVar(&prefix, "prefix", "", "key path prefix")
 	flag.BoolVar(&syncOnly, "sync-only", false, "sync without check_cmd and reload_cmd")
 	flag.StringVar(&calicoconfig, "calicoconfig", "", "Calico apiconfig file path")
+	flag.StringVar(&kubeconfig, "kubeconfig", "", "Kubernetes kubeconfig file path")
 }
 
 // InitConfig initializes the confd configuration by first setting defaults,
@@ -180,6 +187,8 @@ func (c *ConfigVisitor) setConfigFromFlag(f *flag.Flag) {
 		c.config.Onetime = onetime
 	case "keep-stage-file":
 		c.config.Onetime = keepStageFile
+	case "kubeconfig":
+		c.config.Kubeconfig = kubeconfig
 	}
 }
 

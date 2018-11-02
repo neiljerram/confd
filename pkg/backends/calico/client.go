@@ -173,7 +173,7 @@ func NewCalicoClient(confdConfig *config.Config) (*client, error) {
 	}
 
 	// Create and start route generator.
-	rg, err := NewRouteGenerator(c)
+	rg, err := NewRouteGenerator(c, confdConfig.Kubeconfig)
 	if err != nil {
 		log.WithError(err).Fatal("Failed to create route generator")
 	}

@@ -19,11 +19,15 @@ import (
 )
 
 type routeGenerator struct {
-	client *client
+	client     *client
+	kubeconfig string
 }
 
-func NewRouteGenerator(c *client) (rg *routeGenerator, err error) {
-	rg = &routeGenerator{client: c}
+func NewRouteGenerator(c *client, kubeconfig string) (rg *routeGenerator, err error) {
+	rg = &routeGenerator{
+		client:     c,
+		kubeconfig: kubeconfig,
+	}
 	return
 }
 
